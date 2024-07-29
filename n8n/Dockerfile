@@ -6,6 +6,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV INSTALL_APT="apt install -y"
 ENV INSTALL_PIP="python3 -m pip --no-cache-dir install --upgrade"
 
+#create user for this container
+RUN adduser --uid 1999 n8n
+
 
 #update packages
 RUN apt -y update && apt -y upgrade
@@ -53,6 +56,9 @@ RUN set -eux; \
 	npm rebuild sqlite3
 RUN chmod +x /app/starter.sh /apps/scripts/s3cmd.sh
 RUN mkdir .n8n 
+RUN chown -R 1999:0 /app 
+#switch to the user of the container
+USER n8n
 #open port for use
 EXPOSE 5678
 CMD ["bash", "starter.sh"]
