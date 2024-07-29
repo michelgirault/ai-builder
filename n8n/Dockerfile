@@ -39,6 +39,7 @@ RUN ${INSTALL_APT} \
 	g++
 #install pip packages
 RUN ${INSTALL_PIP} \
+	huggingface_hub \
 	python-magic
 
 #install nodejs
