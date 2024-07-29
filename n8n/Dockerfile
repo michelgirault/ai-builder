@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ENV INSTALL_APT="apt install -y"
 ENV INSTALL_PIP="python3 -m pip --no-cache-dir install --upgrade"
+ENV N8N_USER_FOLDER=/app/.n8n
 
 #create user for this container
 RUN adduser --uid 1999 n8n
@@ -38,7 +39,6 @@ RUN ${INSTALL_APT} \
 	g++
 #install pip packages
 RUN ${INSTALL_PIP} \
-	s3cmd \
 	python-magic
 
 #install nodejs
@@ -55,9 +55,9 @@ RUN npm install sqlite3
 RUN set -eux; \
 	npm install -g n8n && \
 	npm rebuild sqlite3
-RUN chmod +x /app/starter.sh /apps/scripts/s3cmd.sh
+RUN chmod +x /app/starter.sh
 RUN mkdir .n8n 
-RUN chown -R 1999:0 /app 
+RUN chown -R 1999:1999 /app 
 #switch to the user of the container
 USER n8n
 #open port for use
