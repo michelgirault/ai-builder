@@ -57,7 +57,7 @@ RUN set -eux; \
 	npm install -g n8n && \
 	npm rebuild sqlite3
 RUN chmod +x /app/starter.sh
-RUN mkdir .n8n 
+#RUN mkdir .n8n 
 RUN chown -R 1999:1999 /app 
 #switch to the user of the container
 USER n8n
