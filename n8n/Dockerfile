@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ENV INSTALL_APT="apt install -y"
 ENV INSTALL_PIP="python3 -m pip --no-cache-dir install --upgrade"
-ENV N8N_USER_FOLDER=/app/.n8n
+ENV N8N_USER_FOLDER=.n8n
 
 #create user for this container
 RUN adduser --uid 1999 n8n
