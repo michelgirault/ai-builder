@@ -45,13 +45,13 @@ RUN apt install -y nodejs
 
 WORKDIR /app
 COPY . /app
-#install sqlite3
+#install sqlite3 lets remove that 
 RUN npm install sqlite3
 #install n8n
 RUN set -eux; \
 	npm install -g n8n && \
 	npm rebuild sqlite3
-RUN chmod +x starter.sh scripts/s3cmd.sh
+RUN chmod +x /app/starter.sh /apps/scripts/s3cmd.sh
 RUN mkdir .n8n 
 #open port for use
 EXPOSE 5678
