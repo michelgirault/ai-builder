@@ -49,6 +49,6 @@ RUN ${INSTALL_PIP} \
 # You can install a specific version like: flowise@1.0.0
 RUN npm install -g flowise
 
-WORKDIR /data
+WORKDIR /app
 EXPOSE 3000
 CMD ["flowise", "start"]
