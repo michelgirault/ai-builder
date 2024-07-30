@@ -4,6 +4,8 @@ FROM ubuntu:jammy
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV INSTALL_APT="apt install -y"
+ENV INSTALL_PIP="python3 -m pip --no-cache-dir install --upgrade"
+
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
@@ -22,6 +24,15 @@ RUN ${INSTALL_APT} \
     gcc \
     git
 
+#install python
+
+RUN ${INSTALL_APT} \
+    python3 \
+    python3-pip \
+    python3-dev \
+    make \
+    g++
+
 # needed 
 RUN ${INSTALL_APT} \
     build-essential \
@@ -38,6 +49,7 @@ RUN apt install nodejs -y
 RUN ${INSTALL_PIP} \
     chromadb \
     llama-index
+
 # install node red
 RUN npm install -g --unsafe-perm node-red
 
