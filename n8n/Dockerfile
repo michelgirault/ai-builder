@@ -48,8 +48,7 @@ RUN apt install -y nodejs
 #set working directory
 
 WORKDIR /app
-COPY ./n8n /app
-RUN ls /app
+COPY . /app
 #install sqlite3 lets remove that 
 RUN npm install sqlite3
 #install n8n
