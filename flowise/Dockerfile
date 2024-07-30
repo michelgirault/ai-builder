@@ -51,4 +51,4 @@ RUN npm install -g flowise
 
 WORKDIR /app
 EXPOSE 3000
-CMD ["flowise", "start"]
+CMD ["flowise", "start --FLOWISE_USERNAME=$FLOWISE_USERNAME --FLOWISE_PASSWORD=$FLOWISE_PASSWORD"]
