@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ENV INSTALL_APT="apt install -y"
 ENV INSTALL_PIP="python3 -m pip --no-cache-dir install --upgrade"
+ENV INSTALL_NPM="npm install -g"
 
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
@@ -51,7 +52,16 @@ RUN ${INSTALL_PIP} \
     llama-index
 
 # install node red
-RUN npm install -g --unsafe-perm node-red
+RUN ${INSTALL_NPM} --unsafe-perm node-red
+#install addon
+RUN ${INSTALL_NPM} \
+    node-red-contrib-uibuilder \
+    node-red-contrib-uibuilder \
+    node-red-contrib-machine-learning \
+    @inductiv/node-red-openai-api \
+    @runvnc/node-red-chatgpt-model \
+    node-red-contrib-chromadb npm \
+    node-red-contrib-custom-chatgpt
 
 WORKDIR /app
 EXPOSE 1880
