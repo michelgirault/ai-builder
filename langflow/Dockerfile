@@ -47,4 +47,4 @@ RUN python3 -m pip install langflow -U
 
 WORKDIR /app
 EXPOSE 3000
-CMD ["python3", "-m", "langflow run", "start"]
+CMD ["python3", "-m", "langflow run"]
