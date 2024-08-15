@@ -42,9 +42,9 @@ RUN ${INSTALL_APT} \
 RUN ${INSTALL_PIP} \
     chromadb \
     llama-index
-# You can install a specific version like: flowise@1.0.0
+#install
 RUN python3 -m pip install langflow -U
 
 WORKDIR /app
-EXPOSE 3000
-CMD ["python3", "-m", "langflow run"]
+EXPOSE 7860
+CMD ["python3", "-m", "langflow" , "run"]
