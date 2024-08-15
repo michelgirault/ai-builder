@@ -47,4 +47,4 @@ RUN python3 -m pip install langflow -U
 
 WORKDIR /app
 EXPOSE 7860
-CMD ["python3", "-m", "langflow" , "run"]
+CMD ["python3", "-m", "langflow" , "run" , "--host", "0.0.0.0", "--port", "8080"]
