@@ -22,7 +22,7 @@ RUN ${INSTALL_APT} \
     cmake \
     gcc \
     git
-#install python
+#install python packages
 
 RUN ${INSTALL_APT} \
     python3 \
@@ -30,7 +30,8 @@ RUN ${INSTALL_APT} \
     python3-dev \
     make \
     g++
-# needed 
+
+    # needed 
 RUN ${INSTALL_APT} \
     build-essential \
     libcairo2-dev \
@@ -42,9 +43,12 @@ RUN ${INSTALL_APT} \
 RUN ${INSTALL_PIP} \
     chromadb \
     llama-index
-#install
-RUN python3 -m pip install langflow -U
+
 
 WORKDIR /app
-EXPOSE 7860
-CMD ["python3", "-m", "langflow" , "run" , "--host", "0.0.0.0", "--port", "8080"]
+COPY . /app
+#install langflow packages
+RUN ${INSTALL_PIP} langflow
+RUN chmod +x /app/starter.sh
+EXPOSE 8080
+CMD ["bash", "starter.sh"]
