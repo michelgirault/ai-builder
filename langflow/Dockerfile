@@ -42,13 +42,16 @@ RUN ${INSTALL_APT} \
 #addon
 RUN ${INSTALL_PIP} \
     chromadb \
-    llama-index
+    s3-loader \
+    pip install boto3
 
-
+#set directory
 WORKDIR /app
 COPY . /app
+
 #install langflow packages
 RUN ${INSTALL_PIP} langflow
+
 RUN chmod +x /app/starter.sh
 EXPOSE 8080
 CMD ["bash", "starter.sh"]
