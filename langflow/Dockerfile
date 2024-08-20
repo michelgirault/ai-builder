@@ -44,7 +44,7 @@ RUN ${INSTALL_APT} \
 RUN ${INSTALL_PIP} \
     chromadb \
     s3-loader \
-    pip install boto3
+    boto3
 
 #set directory
 WORKDIR /app
