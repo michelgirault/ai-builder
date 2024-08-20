@@ -41,8 +41,6 @@ RUN ${INSTALL_APT} \
     libcogl-pango-dev \
     chromium-browser 
 
-
-
 #set directory
 WORKDIR /app
 COPY . /app
