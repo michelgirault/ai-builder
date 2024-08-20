@@ -21,6 +21,7 @@ RUN ${INSTALL_APT} \
     gettext \
     cmake \
     gcc \
+    nano \
     git
 #install python packages
 
