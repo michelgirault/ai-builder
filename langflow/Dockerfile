@@ -47,10 +47,11 @@ COPY . /app
 #addon
 RUN ${INSTALL_PIP} \
     chromadb \
-    s3-loader 
+    s3-loader \
+    pip
     
 #install langflow packages
-RUN ${INSTALL_PIP} langflow
+RUN ${INSTALL_PIP} langflow -U
 
 RUN chmod +x /app/starter.sh
 EXPOSE 8080
