@@ -29,6 +29,7 @@ RUN ${INSTALL_APT} \
     python3 \
     python3-pip \
     python3-dev \
+    python3-venv \
     make \
     g++
 
@@ -40,16 +41,16 @@ RUN ${INSTALL_APT} \
     libcogl-pango-dev \
     chromium-browser 
 
-#addon
-RUN ${INSTALL_PIP} \
-    chromadb \
-    s3-loader \
-    boto3
+
 
 #set directory
 WORKDIR /app
 COPY . /app
-
+#addon
+RUN ${INSTALL_PIP} \
+    chromadb \
+    s3-loader 
+    
 #install langflow packages
 RUN ${INSTALL_PIP} langflow
 
