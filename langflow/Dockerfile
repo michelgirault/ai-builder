@@ -44,6 +44,7 @@ RUN ${INSTALL_APT} \
 #set directory
 WORKDIR /app
 COPY . /app
+COPY /components /app/components
 #addon
 RUN ${INSTALL_PIP} \
     chromadb \
