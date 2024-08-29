@@ -49,6 +49,7 @@ COPY /components /app/components
 RUN ${INSTALL_PIP} \
     chromadb \
     s3-loader \
+    sentence-transformers \
     pip
     
 #install langflow packages
