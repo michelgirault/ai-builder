@@ -44,7 +44,9 @@ RUN apt install nodejs -y
 
 #addon
 RUN ${INSTALL_PIP} \
-    llama-index
+    llama-index \
+    awscli
+    
 # You can install a specific version like: flowise@1.0.0
 RUN npm install -g flowise
 
