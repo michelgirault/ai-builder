@@ -50,5 +50,7 @@ RUN ${INSTALL_PIP} \
 RUN npm install -g flowise
 
 WORKDIR /app
+COPY . /app
+RUN chmod +x /app/starter.sh
 EXPOSE 3000
-CMD ["flowise", "start"]
+CMD ["bash", "starter.sh"]
