@@ -45,6 +45,8 @@ RUN apt install nodejs -y
 #addon
 RUN ${INSTALL_PIP} \
     llama-index \
+    chromadb \
+    s3-loader \
     awscli
     
 # You can install a specific version like: flowise@1.0.0
