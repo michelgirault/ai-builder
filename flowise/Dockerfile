@@ -42,18 +42,22 @@ RUN ${INSTALL_APT} \
 RUN curl -s https://deb.nodesource.com/setup_18.x | bash
 RUN apt install nodejs -y
 
+    
+
+
+WORKDIR /app
+COPY . /app
+
+# You can install a specific version like: flowise@1.0.0
+RUN npm install -g flowise
+
 #addon
 RUN ${INSTALL_PIP} \
     llama-index \
     chromadb \
     s3-loader \
     awscli
-    
-# You can install a specific version like: flowise@1.0.0
-RUN npm install -g flowise
 
-WORKDIR /app
-COPY . /app
 RUN chmod +x /app/starter.sh
 EXPOSE 3000
 CMD ["bash", "starter.sh"]
