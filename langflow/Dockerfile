@@ -9,7 +9,6 @@ ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 #start
-
 USER root
 RUN apt -y update && apt -y upgrade
 #install dependencies

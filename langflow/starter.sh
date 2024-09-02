@@ -9,8 +9,8 @@ if [ -d $LANGFLOW_DATASETS_DIR ]; then
 else
     mkdir $LANGFLOW_DATASETS_DIR 
 fi
-#sync the drive from s3
-aws s3 sync --endpoint-url=$S3_ENDPOINT $LANGFLOW_DATASETS_DIR $S3_BUCKET
+#sync the drive from s3 
+aws s3 sync --endpoint-url=$S3_ENDPOINT $S3_BUCKET $LANGFLOW_DATASETS_DIR 
 #run the vector db
 
 chroma run --host localhost --port 8000 --path /app/chrome &
