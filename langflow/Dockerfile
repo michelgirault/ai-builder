@@ -50,6 +50,7 @@ RUN ${INSTALL_PIP} \
     chromadb \
     s3-loader \
     sentence-transformers \
+    awscli \
     pip
     
 #install langflow packages
