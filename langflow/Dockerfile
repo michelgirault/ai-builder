@@ -53,7 +53,7 @@ RUN ${INSTALL_PIP} \
     pip
     
 #install langflow packages
-RUN ${INSTALL_PIP} langflow -U
+RUN ${INSTALL_PIP} langflow
 
 RUN chmod +x /app/starter.sh
 EXPOSE 8080
