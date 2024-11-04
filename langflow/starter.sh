@@ -13,7 +13,7 @@ fi
 aws s3 sync --endpoint-url=$S3_ENDPOINT $S3_BUCKET $LANGFLOW_DATASETS_DIR 
 #run the vector db
 
-chroma run --host localhost --port 8000 --path /app/chrome &
+chroma run --host 0.0.0.0 --port 8000 --path /app/chrome &
 #run the ai builder
 python3 -m langflow run 
 wait
