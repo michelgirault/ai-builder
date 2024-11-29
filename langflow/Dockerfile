@@ -4,7 +4,7 @@ FROM ubuntu:jammy
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV INSTALL_APT="apt install -y"
-ENV INSTALL_PIP="python3 -m pip --no-cache-dir install --upgrade"
+ENV INSTALL_PIP="python3 -m pip --no-cache-dir install --upgrade --use-deprecated legacy-resolver"
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
@@ -51,9 +51,12 @@ RUN ${INSTALL_PIP} \
     sentence-transformers \
     awscli \
     pip
-    
+
+#update pip
+RUN apt -y update && apt -y upgrade
+
 #install langflow packages
-RUN ${INSTALL_PIP} langflow -U
+RUN ${INSTALL_PIP} langflow
 
 RUN chmod +x /app/starter.sh
 EXPOSE 8080
