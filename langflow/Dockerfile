@@ -56,7 +56,7 @@ RUN ${INSTALL_PIP} \
 RUN apt -y update && apt -y upgrade
 
 #install langflow packages
-RUN ${INSTALL_PIP} langflow
+RUN ${INSTALL_PIP} langflow -U
 
 RUN chmod +x /app/starter.sh
 EXPOSE 8080
