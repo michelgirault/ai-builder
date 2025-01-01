@@ -7,6 +7,7 @@ ENV INSTALL_APT="apt install -y"
 ENV INSTALL_PIP="python3 -m pip --no-cache-dir install --upgrade --use-deprecated legacy-resolver"
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+ENV UV_PRERELEASE=allow 
 
 #start
 USER root
@@ -46,17 +47,16 @@ COPY . /app
 
 #addon
 RUN ${INSTALL_PIP} \
-    chromadb \
     s3-loader \
     sentence-transformers \
     awscli \
-    pip
+    lancedb==0.17.0
 
 #update pip
 RUN apt -y update && apt -y upgrade
 
 #install langflow packages
-RUN ${INSTALL_PIP} langflow -U
+RUN ${INSTALL_PIP} langflow==1.1.1
 
 RUN chmod +x /app/starter.sh
 EXPOSE 8080
