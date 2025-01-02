@@ -50,10 +50,12 @@ RUN ${INSTALL_PIP} \
     s3-loader \
     sentence-transformers \
     awscli \
+    psycopg2-binary \
+    psycopg \
+    psycopg_binary \
+    Click \
+    bcrypt==4.0.1 \
     lancedb==0.17.0
-
-#update pip
-RUN apt -y update && apt -y upgrade
 
 #install langflow packages
 RUN ${INSTALL_PIP} langflow==1.1.1
