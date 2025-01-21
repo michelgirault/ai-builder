@@ -49,12 +49,10 @@ RUN apt install -y nodejs
 
 WORKDIR /app
 COPY . /app
-#install sqlite3 lets remove that 
-RUN npm install sqlite3
+
 #install n8n
 RUN set -eux; \
-	npm install -g n8n && \
-	npm rebuild sqlite3
+	npm install -g n8n
 RUN chmod +x /app/starter.sh
 #RUN mkdir .n8n 
 RUN chown -R 1999:1999 /app 

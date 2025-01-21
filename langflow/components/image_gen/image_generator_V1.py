@@ -1,4 +1,5 @@
-import os, io
+import os
+import io
 import logging
 import base64
 import requests
@@ -10,11 +11,10 @@ from langflow.io import MessageTextInput, Output
 from langflow.field_typing import Text
 from langflow.schema import Data
 from langflow.schema.message import Message
+from langflow.schema.content_block import ContentBlock
+from langflow.schema.content_types import TextContent, MediaContent
 from langflow.inputs import StrInput, MultilineInput, SecretStrInput, IntInput, DropdownInput
 from langflow.template import Output, Input
-
-
-
 
 class CustomComponent(Component):
     display_name = "Custom component test input output"
@@ -31,27 +31,33 @@ class CustomComponent(Component):
         ),
         Input(
             name="input_steps", 
-            display_name="Input Steps",
+            display_name="Steps",
+            required=True,
+            input_types=["Message"]
+        ),
+        Input(
+            name="input_base_url", 
+            display_name="Base Url",
             required=True,
             input_types=["Message"]
         ),
         DropdownInput(
             name="input_height",
-            display_name="Input height",
+            display_name="height",
             required=True,
             options=["512", "1024"],
             input_types=["Message"]
         ),
         DropdownInput(
             name="input_width",
-            display_name="Input width",
+            display_name="width",
             required=True,
             options=["512", "1024"],
             input_types=["Message"]
         ),
         Input(
             name="input_apikey", 
-            display_name="Input ApiKey",
+            display_name="Api Key",
             password="true",
             input_types=["Message"]
         ),
@@ -67,7 +73,6 @@ class CustomComponent(Component):
             display_name="Output Directory",
             field_type="str",
             required=True,
-            value="06186778-309d-42e6-a12b-85c5db9bf3e4",
         ),
     ]
     outputs = [
@@ -75,7 +80,7 @@ class CustomComponent(Component):
     ]
         
     def build_output_message(self) -> Message:
-        url = "http://api-sd.apps.lumimai.com:8080/generate"
+        url = self.input_base_url
         headers = {
             "Authorization": f"Bearer {self.input_apikey}",
             "Content-Type": "application/json",
@@ -86,7 +91,7 @@ class CustomComponent(Component):
             "height": self.input_height,
             "width": self.input_width,
             "num_inference_steps": self.input_steps,
-            "guidance_scale": 4.0
+            "guidance_scale": 3.5
         }
         
         response = requests.post(url, headers=headers, json=data, timeout=self.input_timoutduration)
@@ -94,7 +99,7 @@ class CustomComponent(Component):
         result = response.json()
         image_data = result
         #define variable
-        ROOT_DIR = os.environ['LANGFLOW_CONFIG_DIR']
+        ROOTDIR = os.environ['LANGFLOW_CONFIG_DIR']
 
         #create repository if non existant
         os.makedirs(self.output_directory, exist_ok=True)
@@ -105,10 +110,12 @@ class CustomComponent(Component):
         filename = f"{timestamp}_{len(os.listdir(self.output_directory)) + 1}.jpg"
  
         relative_path = os.path.join(filename)
-        full_path = os.path.join(ROOT_DIR, self.output_directory, relative_path)
+        full_path = os.path.join(ROOTDIR, self.output_directory, relative_path)
         full_url_path = os.path.join(BASE_IMAGE_URL, self.output_directory, relative_path)
+        # test the variable
         print(full_url_path)
         print(full_path)
+
         # Ensure the directory for the file exists
         os.makedirs(os.path.dirname(full_path), exist_ok=True)
         
@@ -116,9 +123,19 @@ class CustomComponent(Component):
         # Save the image
         with open(full_path, "wb") as image_file:
             image_file.write(base64.b64decode(image_data))
-            
-        return Message(
-                text=full_url_path
+        #display in chat the image output / link
+        image_to_chat = Message(
+            sender="image_gen",
+            sender_name="Image",
+            content_blocks=[
+            ContentBlock(
+            title="Media Block",
+            contents=[
+                MediaContent(type="media", urls=[full_url_path])
+                    ]
                 )
-        
+            ],
+
+        )
+        return image_to_chat
         

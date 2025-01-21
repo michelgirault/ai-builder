@@ -58,7 +58,7 @@ RUN ${INSTALL_PIP} \
     lancedb==0.17.0
 
 #install langflow packages
-RUN ${INSTALL_PIP} langflow==1.1.1
+RUN ${INSTALL_PIP} langflow
 
 RUN chmod +x /app/starter.sh
 EXPOSE 8080
