@@ -17,8 +17,8 @@ from langflow.inputs import StrInput, MultilineInput, SecretStrInput, IntInput, 
 from langflow.template import Output, Input
 
 class CustomComponent(Component):
-    display_name = "Custom component test input output"
-    description = "Use as a template to create your own component."
+    display_name = "Image generator"
+    description = "Custom component to create image."
     icon = "custom_components"
     name = "TestComponent"
     inputs = [
@@ -98,14 +98,15 @@ class CustomComponent(Component):
         response.raise_for_status()
         result = response.json()
         image_data = result
-        #define variable
+        #define variable with env variables
         ROOTDIR = os.environ['LANGFLOW_CONFIG_DIR']
+        LANGFLOW_BASE_URL = os.environ['LANGFLOW_BASE_URL']
 
         #create repository if non existant
         os.makedirs(self.output_directory, exist_ok=True)
 
         # Generate a unique filename
-        BASE_IMAGE_URL = "http://builder.apps.lumimai.com:8080/api/v1/files/images/"
+        BASE_IMAGE_URL = os.path.join(LANGFLOW_BASE_URL, "api/v1/files/images/")
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename = f"{timestamp}_{len(os.listdir(self.output_directory)) + 1}.jpg"
  
@@ -125,6 +126,7 @@ class CustomComponent(Component):
             image_file.write(base64.b64decode(image_data))
         #display in chat the image output / link
         image_to_chat = Message(
+            text="image generated",
             sender="image_gen",
             sender_name="Image",
             content_blocks=[
@@ -137,5 +139,5 @@ class CustomComponent(Component):
             ],
 
         )
+        #output the image and the text 
         return image_to_chat
-        
