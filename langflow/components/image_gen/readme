@@ -1,6 +1,7 @@
 Basic information regarding the settings of the component
 
 prompt : type your prompt or input from other source such as llm 
+steps: number of steps for the inference generation
 Base Url : the url of your image generator api
 height : select 512 or 1024 as output resolution
 width : select 512 or 1024 as output resolution
@@ -8,4 +9,5 @@ Api Key : the api key of your solutions
 Timeout Duration : timeout in case you have a long duration for generating the image, default 200 secondes
 Current flowID : the current flowid where to save the generated image
 
-quick note : the current component has been tested with diffusers with the following            "prompt", "negative_prompt", "height", "width", "num_inference_steps","guidance_scale"
+quick note : the current component has been tested with diffusers with the following
+"prompt", "negative_prompt", "height", "width", "num_inference_steps","guidance_scale"
