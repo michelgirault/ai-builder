@@ -70,7 +70,7 @@ class CustomComponent(Component):
         ),
         Input(
             name="output_directory",
-            display_name="Output Directory",
+            display_name="Current flowID",
             field_type="str",
             required=True,
         ),
@@ -113,9 +113,6 @@ class CustomComponent(Component):
         relative_path = os.path.join(filename)
         full_path = os.path.join(ROOTDIR, self.output_directory, relative_path)
         full_url_path = os.path.join(BASE_IMAGE_URL, self.output_directory, relative_path)
-        # test the variable
-        print(full_url_path)
-        print(full_path)
 
         # Ensure the directory for the file exists
         os.makedirs(os.path.dirname(full_path), exist_ok=True)
@@ -137,7 +134,6 @@ class CustomComponent(Component):
                     ]
                 )
             ],
-
         )
-        #output the image and the text 
         return image_to_chat
+        
