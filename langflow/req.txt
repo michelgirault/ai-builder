@@ -1,0 +1,14 @@
+s3-loader
+numpy
+pandas
+matplotlib
+scikit-learn 
+requests
+sentence-transformers
+awscli
+psycopg2-binary
+psycopg
+psycopg_binary
+Click
+bcrypt==4.0.1
+lancedb==0.17.0

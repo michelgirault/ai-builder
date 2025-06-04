@@ -4,7 +4,7 @@ FROM ubuntu:jammy
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV INSTALL_APT="apt install -y"
-ENV INSTALL_PIP="python3 -m pip --no-cache-dir install --upgrade --use-deprecated legacy-resolver"
+ENV INSTALL_PIP="python3 -m pip --no-cache-dir install --upgrade --use-deprecated=legacy-resolver --timeout=100" 
 ENV PUPPETEER_SKIP_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 ENV UV_PRERELEASE=allow 
@@ -48,14 +48,22 @@ COPY . /app
 #addon
 RUN ${INSTALL_PIP} \
     s3-loader \
-    sentence-transformers \
+    numpy \
+    pandas \
+    matplotlib \
+    scikit-learn \
+    requests \
+    #sentence-transformers \
     awscli \
-    psycopg2-binary \
     psycopg \
     psycopg_binary \
+    psycopg2-binary \
     Click \
-    bcrypt==4.0.1 \
-    lancedb==0.17.0
+    bcrypt\
+    lancedb
+
+#install chroma
+RUN ${INSTALL_PIP} chromadb
 
 #install langflow packages
 RUN ${INSTALL_PIP} langflow
